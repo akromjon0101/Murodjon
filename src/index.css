@@ -116,24 +116,31 @@ body {
     radial-gradient(65% 50% at 96% 96%, rgba(207, 189, 158, 0.14), transparent 62%),
     linear-gradient(178deg, #fbfcfe 0%, #fdfcf9 55%, #fbf6ef 100%);
 }
-.page-bg__spray {
+.page-bg__bq {
   position: absolute;
-  width: 46vw;
-  max-width: 460px;
-  opacity: 0.16;
+  width: 74vw;
+  max-width: 560px;
+  opacity: 0.5;
 }
-.page-bg__spray--tr {
-  top: -4vw;
-  right: -6vw;
+.page-bg__bq--tr {
+  top: -12vw;
+  right: -20vw;
 }
-.page-bg__spray--bl {
-  bottom: -4vw;
-  left: -6vw;
-  opacity: 0.12;
+.page-bg__bq--bl {
+  bottom: -12vw;
+  left: -20vw;
+  opacity: 0.42;
 }
 @media (min-width: 768px) {
-  .page-bg__spray {
-    width: 30vw;
+  .page-bg__bq {
+    width: 40vw;
+    max-width: 620px;
+  }
+  .page-bg__bq--tr {
+    right: -8vw;
+  }
+  .page-bg__bq--bl {
+    left: -8vw;
   }
 }
 

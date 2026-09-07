@@ -4,7 +4,7 @@ import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
 import useInViewport from '../hooks/useInViewport.js';
-import { SparkleRule } from './decor.jsx';
+import { SparkleRule, EucalyptusSprig } from './decor.jsx';
 
 export default function Calendar() {
   const { t } = useLang();
@@ -22,7 +22,8 @@ export default function Calendar() {
   }, [year, month]);
 
   return (
-    <section id="calendar" className="relative px-6 py-16 sm:py-24">
+    <section id="calendar" className="relative overflow-hidden px-6 py-16 sm:py-24">
+      <EucalyptusSprig flip className="pointer-events-none absolute -right-10 top-12 w-40 opacity-35 sm:right-4 sm:w-52" />
       <div className="mx-auto max-w-xl text-center">
         <Reveal preset="fade-up">
           <p className="heading-eyebrow">{t.saveTheDate}</p>

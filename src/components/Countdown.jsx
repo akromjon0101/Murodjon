@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { weddingDate } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
-import { SparkleRule } from './decor.jsx';
+import { SparkleRule, EucalyptusSprig } from './decor.jsx';
 
 function getRemaining(target) {
   const diff = target.getTime() - Date.now();
@@ -37,7 +37,8 @@ export default function Countdown() {
   );
 
   return (
-    <section id="countdown" className="relative px-6 py-16 sm:py-24">
+    <section id="countdown" className="relative overflow-hidden px-6 py-16 sm:py-24">
+      <EucalyptusSprig className="pointer-events-none absolute -left-10 top-12 w-40 opacity-35 sm:left-4 sm:w-52" />
       <div className="mx-auto max-w-3xl text-center">
         <Reveal preset="fade-up">
           <p className="heading-eyebrow">{t.countingMoments}</p>

@@ -1,6 +1,13 @@
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
-import { IconCalendar, IconClock, IconVenue, IconLocation, SparkleRule } from './decor.jsx';
+import {
+  IconCalendar,
+  IconClock,
+  IconVenue,
+  IconLocation,
+  SparkleRule,
+  EucalyptusSprig,
+} from './decor.jsx';
 
 export default function WeddingInfo() {
   const { t } = useLang();
@@ -13,7 +20,8 @@ export default function WeddingInfo() {
   ];
 
   return (
-    <section id="info" className="relative px-6 py-16 sm:py-24">
+    <section id="info" className="relative overflow-hidden px-6 py-16 sm:py-24">
+      <EucalyptusSprig className="pointer-events-none absolute -left-8 bottom-12 w-44 opacity-35 sm:left-6 sm:w-56" />
       <div className="mx-auto max-w-4xl text-center">
         <Reveal preset="fade-up">
           <p className="heading-eyebrow">{t.weddingInfo}</p>

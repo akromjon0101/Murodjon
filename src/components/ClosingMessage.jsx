@@ -1,7 +1,7 @@
 import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
-import { WatercolorSpray, GoldDecoCorner, FlutterButterfly } from './decor.jsx';
+import { WatercolorBouquet, GoldDecoCorner, FlutterButterfly } from './decor.jsx';
 
 export default function ClosingMessage() {
   const { t, lang } = useLang();
@@ -11,7 +11,7 @@ export default function ClosingMessage() {
       id="closing"
       className="relative flex min-h-[80svh] items-center justify-center overflow-hidden px-6 py-24"
     >
-      <WatercolorSpray
+      <WatercolorBouquet
         id="closing-spray"
         flip
         className="pointer-events-none absolute -right-16 -top-10 w-[58vw] max-w-[300px] opacity-35 sm:-right-4 sm:w-[26vw]"

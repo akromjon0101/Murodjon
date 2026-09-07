@@ -1,14 +1,14 @@
-import { WatercolorSpray } from './decor.jsx';
+import { WatercolorBouquet } from './decor.jsx';
 
-/* Fixed decorative background — a warm ivory ground with two soft, well-
-   separated colour washes and one large, very faint watercolor branch.
-   Deliberately minimal so the content breathes. */
+/* Fixed decorative background — a warm ivory ground with soft colour washes
+   and two watercolor bouquets anchored at opposite corners. Minimal enough
+   that content still breathes. */
 export default function PageBackground() {
   return (
     <div className="page-bg pointer-events-none fixed inset-0 z-0" aria-hidden="true">
       <div className="page-bg__wash" />
-      <WatercolorSpray id="bg" className="page-bg__spray page-bg__spray--tr" />
-      <WatercolorSpray id="bg2" flip className="page-bg__spray page-bg__spray--bl" />
+      <WatercolorBouquet id="bg1" className="page-bg__bq page-bg__bq--tr" />
+      <WatercolorBouquet id="bg2" flip className="page-bg__bq page-bg__bq--bl" />
     </div>
   );
 }

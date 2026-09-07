@@ -1,6 +1,6 @@
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
-import { Sparkle, SparkleRule } from './decor.jsx';
+import { Sparkle, SparkleRule, EucalyptusSprig } from './decor.jsx';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
@@ -10,6 +10,11 @@ export default function Journey() {
 
   return (
     <section id="journey" className="relative overflow-hidden px-6 py-16 sm:py-24">
+      <EucalyptusSprig className="pointer-events-none absolute -left-10 top-10 w-40 opacity-40 sm:left-4 sm:w-52" />
+      <EucalyptusSprig
+        flip
+        className="pointer-events-none absolute -right-10 bottom-10 w-40 opacity-40 sm:right-4 sm:w-52"
+      />
       <div className="mx-auto max-w-lg text-center">
         <Reveal preset="fade-up">
           <div className="mb-4 flex items-center justify-center gap-2 text-gold">

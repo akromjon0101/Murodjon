@@ -326,6 +326,172 @@ export function WatercolorSpray({ className = '', id = 'ws', flip = false }) {
   );
 }
 
+/* ---- richer watercolor bouquet (fine-art wedding style) ---- */
+
+function wcRose(cx, cy, r, main, soft) {
+  // a loose open spiral (garden-rose seen from above)
+  const turns = 2.4;
+  const steps = 40;
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const ang = t * turns * Math.PI * 2 + 0.6;
+    const rad = t * r * 0.92;
+    const x = (cx + Math.cos(ang) * rad).toFixed(1);
+    const y = (cy + Math.sin(ang) * rad).toFixed(1);
+    d += i === 0 ? `M${x} ${y}` : ` L${x} ${y}`;
+  }
+  // a few outer petal loops
+  const petals = [];
+  for (let p = 0; p < 5; p++) {
+    const a = (p / 5) * Math.PI * 2 + 0.3;
+    const x0 = cx + Math.cos(a) * r * 0.62;
+    const y0 = cy + Math.sin(a) * r * 0.62;
+    const x1 = cx + Math.cos(a + 1.15) * r * 0.62;
+    const y1 = cy + Math.sin(a + 1.15) * r * 0.62;
+    const mx = cx + Math.cos(a + 0.57) * r * 1.12;
+    const my = cy + Math.sin(a + 0.57) * r * 1.12;
+    petals.push(
+      `M${x0.toFixed(1)} ${y0.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`
+    );
+  }
+  return (
+    <g key={`${cx}-${cy}`}>
+      <circle cx={cx} cy={cy} r={r * 1.05} fill={soft} />
+      <g stroke={main} strokeWidth={r * 0.075} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.8">
+        <path d={d} />
+        {petals.map((pp, i) => (
+          <path key={i} d={pp} />
+        ))}
+      </g>
+    </g>
+  );
+}
+
+function wcEuc(x, y, angle, length, tone) {
+  const rad = (angle * Math.PI) / 180;
+  const ex = x + Math.cos(rad) * length;
+  const ey = y + Math.sin(rad) * length;
+  const leaves = [];
+  const n = Math.round(length / 14);
+  for (let i = 1; i <= n; i++) {
+    const t = i / (n + 1);
+    const lx = x + Math.cos(rad) * length * t;
+    const ly = y + Math.sin(rad) * length * t;
+    const side = i % 2 ? 62 : -62;
+    leaves.push(
+      <ellipse key={i} cx={lx} cy={ly} rx="6.5" ry="4" fill={tone} transform={`rotate(${angle + side} ${lx} ${ly})`} />
+    );
+  }
+  return (
+    <g key={`${x}-${y}-${angle}`}>
+      <path d={`M${x} ${y} L ${ex.toFixed(1)} ${ey.toFixed(1)}`} stroke="#5E7DA0" strokeOpacity="0.4" strokeWidth="1" />
+      {leaves}
+    </g>
+  );
+}
+
+/* A fuller watercolor arrangement — roses, eucalyptus, gold sprigs.
+   `id` must be unique per instance. */
+export function WatercolorBouquet({ className = '', id = 'wb', flip = false }) {
+  const A = `${id}-a`;
+  const B = `${id}-c`;
+  return (
+    <svg
+      viewBox="0 0 360 300"
+      className={className}
+      fill="none"
+      aria-hidden="true"
+      style={flip ? { transform: 'scaleX(-1)' } : undefined}
+    >
+      <defs>
+        <radialGradient id={A} cx="0.45" cy="0.4" r="0.7">
+          <stop offset="0" stopColor="#AEC4DC" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#AEC4DC" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={B} cx="0.45" cy="0.4" r="0.7">
+          <stop offset="0" stopColor="#E7C6C9" stopOpacity="0.62" />
+          <stop offset="1" stopColor="#E7C6C9" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* painterly base washes */}
+      <ellipse cx="120" cy="120" rx="96" ry="80" fill={`url(#${A})`} />
+      <ellipse cx="220" cy="150" rx="88" ry="76" fill={`url(#${B})`} />
+      <ellipse cx="180" cy="80" rx="70" ry="56" fill={`url(#${B})`} />
+
+      {/* eucalyptus fanning out */}
+      {wcEuc(160, 170, -150, 130, '#9CB6D4')}
+      {wcEuc(170, 168, -110, 120, '#A7C0D8')}
+      {wcEuc(180, 172, -60, 128, '#9CB6D4')}
+      {wcEuc(176, 176, -20, 110, '#A7C0D8')}
+      {wcEuc(150, 176, -200, 96, '#B7C9DE')}
+
+      {/* gold accent sprigs */}
+      <g stroke="#B08A50" strokeOpacity="0.75" strokeWidth="1" fill="none" strokeLinecap="round">
+        <path d="M182 176 C 220 150 268 150 312 172" />
+        {[228, 250, 272, 292].map((gx, i) => (
+          <path key={i} d={leafPath(gx, 152 + i * 4 + (gx - 228) * 0.12, -42, 12, 0.34)} />
+        ))}
+        <path d="M160 178 C 130 150 96 148 60 164" />
+        {[136, 116, 96].map((gx, i) => (
+          <path key={`l${i}`} d={leafPath(gx, 156 + i * 3, -138, 11, 0.34)} />
+        ))}
+      </g>
+
+      {/* the roses */}
+      {wcRose(126, 128, 40, '#3A5A7C', `url(#${A})`)}
+      {wcRose(214, 150, 34, '#B26B75', `url(#${B})`)}
+      {wcRose(176, 92, 28, '#3A5A7C', `url(#${A})`)}
+      {wcRose(158, 178, 20, '#B26B75', `url(#${B})`)}
+
+      {/* berries */}
+      <g fill="#5E7DA0" fillOpacity="0.55">
+        <circle cx="252" cy="120" r="4" />
+        <circle cx="262" cy="128" r="3.4" />
+        <circle cx="246" cy="130" r="3" />
+      </g>
+    </svg>
+  );
+}
+
+/* A single delicate eucalyptus sprig for section accents. */
+export function EucalyptusSprig({ className = '', flip = false }) {
+  return (
+    <svg
+      viewBox="0 0 200 90"
+      className={className}
+      fill="none"
+      aria-hidden="true"
+      style={flip ? { transform: 'scaleX(-1)' } : undefined}
+    >
+      <path d="M6 78 C 50 66 110 50 194 14" stroke="#5E7DA0" strokeOpacity="0.5" strokeWidth="1" strokeLinecap="round" />
+      {[...Array(9)].map((_, i) => {
+        const t = i / 9;
+        const x = 12 + t * 172;
+        const y = 74 - t * 58;
+        const side = i % 2 ? 58 : -58;
+        return (
+          <ellipse
+            key={i}
+            cx={x}
+            cy={y}
+            rx="7"
+            ry="4.2"
+            fill="#9CB6D4"
+            fillOpacity="0.55"
+            transform={`rotate(${-18 + side} ${x} ${y})`}
+          />
+        );
+      })}
+      <g fill="#B08A50" fillOpacity="0.6">
+        <circle cx="188" cy="16" r="2.6" />
+        <circle cx="180" cy="22" r="2.2" />
+      </g>
+    </svg>
+  );
+}
+
 /* Thin gold art-deco corner flourish (mirror with -scale-x/-scale-y). */
 export function GoldDecoCorner({ className = '' }) {
   return (
