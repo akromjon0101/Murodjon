@@ -162,6 +162,69 @@ export function Monogram({ a = 'A', b = 'B', className = '', stroke = 'currentCo
   );
 }
 
+/* Gold monogram wreath — a fine broken gold ring with a few leaf sprigs and
+   the two initials in navy script at the centre. */
+export function GoldMonogram({ a = 'A', b = 'B', className = '' }) {
+  const sprig = (cx, cy, rot) => (
+    <g transform={`rotate(${rot} ${cx} ${cy})`}>
+      <path d={`M${cx} ${cy} q 10 -3 20 -1`} stroke="#B08A50" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+      {[0, 1, 2, 3].map((i) => (
+        <path
+          key={i}
+          d={leafPath(cx + 4 + i * 5, cy - 1 - i * 0.6, -34, 6, 0.5)}
+          stroke="#B08A50"
+          strokeWidth="0.8"
+          strokeLinejoin="round"
+        />
+      ))}
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 120 120" className={className} fill="none" aria-hidden="true">
+      {/* broken gold ring — two arcs */}
+      <path d="M60 16 A44 44 0 0 1 104 60" stroke="#B08A50" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M60 104 A44 44 0 0 1 16 60" stroke="#B08A50" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M104 60 A44 44 0 0 1 88 94" stroke="#B08A50" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="1 4" />
+      <path d="M16 60 A44 44 0 0 1 32 26" stroke="#B08A50" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="1 4" />
+
+      {sprig(30, 26, -18)}
+      {sprig(90, 94, 162)}
+
+      {/* initials */}
+      <text
+        x="44"
+        y="72"
+        textAnchor="middle"
+        fontFamily="'Great Vibes', cursive"
+        fontSize="42"
+        fill="#3A5A7C"
+      >
+        {a}
+      </text>
+      <text
+        x="62"
+        y="66"
+        textAnchor="middle"
+        fontFamily="'Cormorant Garamond', serif"
+        fontSize="16"
+        fill="#B08A50"
+      >
+        &amp;
+      </text>
+      <text
+        x="80"
+        y="80"
+        textAnchor="middle"
+        fontFamily="'Great Vibes', cursive"
+        fontSize="42"
+        fill="#3A5A7C"
+      >
+        {b}
+      </text>
+    </svg>
+  );
+}
+
 /* Small diamond — the recurring accent (replaces the old sparkle). */
 export function Sparkle({ className = '', fill = 'currentColor' }) {
   return (

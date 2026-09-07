@@ -1,6 +1,6 @@
 import { wedding, initials } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
-import { Monogram, SparkleRule, ArchLine, GildedBloom, GoldDecoCorner } from './decor.jsx';
+import { GoldMonogram, SparkleRule, ArchLine, GildedBloom, GoldDecoCorner } from './decor.jsx';
 
 export default function Hero() {
   const { t, lang } = useLang();
@@ -44,10 +44,10 @@ export default function Hero() {
 
       <div className="hero-inner relative z-10 mx-auto max-w-2xl text-center">
         <div className="hero-rise" style={{ '--delay': '0.15s' }}>
-          <Monogram
+          <GoldMonogram
             a={initials.bride}
             b={initials.groom}
-            className="mx-auto h-16 w-16 text-navy/75 sm:h-20 sm:w-20"
+            className="mx-auto h-20 w-20 sm:h-24 sm:w-24"
           />
           <p className="mx-auto mt-7 max-w-[15rem] font-serif text-xs uppercase leading-[1.9] tracking-[0.3em] text-stone sm:max-w-sm sm:text-sm">
             {t.invitePhrase}
