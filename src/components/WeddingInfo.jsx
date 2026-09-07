@@ -8,6 +8,7 @@ import {
   SparkleRule,
   EucalyptusSprig,
 } from './decor.jsx';
+import FloralVignette from './FloralVignette.jsx';
 
 export default function WeddingInfo() {
   const { t } = useLang();
@@ -45,6 +46,12 @@ export default function WeddingInfo() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal preset="fade" delay={0.15}>
+          <div className="mt-16 flex justify-center" aria-hidden="true">
+            <FloralVignette id="info-vg" className="w-44 text-navy sm:w-56" />
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
 import { Sparkle, SparkleRule, EucalyptusSprig } from './decor.jsx';
+import FloralVignette from './FloralVignette.jsx';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
@@ -29,13 +30,12 @@ export default function Journey() {
           {milestones.map((m, i) => (
             <div key={i}>
               {i > 0 && (
-                <Reveal preset="fade" duration={0.8}>
-                  <div className="journey-rule" aria-hidden="true">
-                    <span />
-                    <Sparkle className="h-2.5 w-2.5" />
-                    <span />
-                  </div>
-                </Reveal>
+                <div className="my-12 flex justify-center sm:my-16" aria-hidden="true">
+                  <FloralVignette
+                    id={`journey-vg-${i}`}
+                    className="w-40 text-navy sm:w-52"
+                  />
+                </div>
               )}
               <Reveal preset="fade-up" delay={0.05} className="journey-step">
                 <p className="font-display text-2xl italic text-gold sm:text-3xl">{ROMAN[i]}</p>

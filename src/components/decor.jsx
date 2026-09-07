@@ -7,7 +7,7 @@
 /* ---------- shared shape helpers (all in local SVG units) ---------- */
 
 // An almond leaf from (x,y), pointing at `angle` degrees, of length `len`.
-function leafPath(x, y, angle, len, curve = 0.3) {
+export function leafPath(x, y, angle, len, curve = 0.3) {
   const rad = (angle * Math.PI) / 180;
   const ux = Math.cos(rad);
   const uy = Math.sin(rad);
