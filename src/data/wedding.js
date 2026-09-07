@@ -19,6 +19,18 @@ export const wedding = {
   // Optional background music. Drop an mp3 at public/music/wedding.mp3
   // (or point this at any hosted URL). Missing files fail gracefully.
   musicSrc: '/music/wedding.mp3',
+
+  // Photo gallery. Drop images at public/gallery/photo-1.jpg … photo-6.jpg
+  // (jpg or webp — just match the name). Any that are missing show a soft
+  // watercolor placeholder instead, so the section always looks intentional.
+  gallery: [
+    '/gallery/photo-1.jpg',
+    '/gallery/photo-2.jpg',
+    '/gallery/photo-3.jpg',
+    '/gallery/photo-4.jpg',
+    '/gallery/photo-5.jpg',
+    '/gallery/photo-6.jpg',
+  ],
 };
 
 // JS Date for the ceremony (month is 0-indexed for the Date constructor).

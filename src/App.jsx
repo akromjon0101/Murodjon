@@ -4,6 +4,7 @@ import FloatingDecorations from './components/FloatingDecorations.jsx';
 import ScrollProgress from './components/ScrollProgress.jsx';
 import Hero from './components/Hero.jsx';
 import Journey from './components/Journey.jsx';
+import Gallery from './components/Gallery.jsx';
 import Vow from './components/Vow.jsx';
 import Calendar from './components/Calendar.jsx';
 import Countdown from './components/Countdown.jsx';
@@ -45,6 +46,7 @@ export default function App() {
             <div className="relative z-10">
               <Hero />
               <Journey />
+              <Gallery />
               <Vow />
               <Calendar />
               <Countdown />

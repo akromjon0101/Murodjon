@@ -26,6 +26,17 @@ export const strings = {
       },
     ],
 
+    galleryEyebrow: 'Bir lahzalar',
+    galleryTitle: 'Sevgi lahzalari',
+    galleryCaptions: [
+      'Abadiy sevgi…',
+      'Oltin uzuklar…',
+      'Ilk uchrashuv…',
+      'Va’dalar…',
+      'Ikki qalb…',
+      'Boshlanish…',
+    ],
+
     saveTheDate: 'Sanani eslab qoling',
     monthName: 'SENTABR',
     weekday: 'PAY',
@@ -83,6 +94,17 @@ export const strings = {
       },
     ],
 
+    galleryEyebrow: 'Мгновения',
+    galleryTitle: 'Мгновения любви',
+    galleryCaptions: [
+      'Вечная любовь…',
+      'Золотые кольца…',
+      'Первая встреча…',
+      'Обещания…',
+      'Два сердца…',
+      'Начало…',
+    ],
+
     saveTheDate: 'Сохраните дату',
     monthName: 'СЕНТЯБРЬ',
     weekday: 'ЧТ',
@@ -138,6 +160,17 @@ export const strings = {
         title: 'The Wedding',
         text: 'And finally — the day to be together for life.',
       },
+    ],
+
+    galleryEyebrow: 'Moments',
+    galleryTitle: 'Moments of Love',
+    galleryCaptions: [
+      'Everlasting love…',
+      'Golden rings…',
+      'The first meeting…',
+      'Promises…',
+      'Two hearts…',
+      'The beginning…',
     ],
 
     saveTheDate: 'Save the Date',

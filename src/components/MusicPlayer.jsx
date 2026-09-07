@@ -14,12 +14,25 @@ export default function MusicPlayer({ enabled }) {
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
 
+  // Check the track really exists before showing the control. A dev/preview
+  // server may answer a missing file with an HTML fallback (status 200), so we
+  // also verify the content-type looks like audio.
   useEffect(() => {
-    const el = audioRef.current;
-    if (!el) return undefined;
-    const onErr = () => setAvailable(false);
-    el.addEventListener('error', onErr);
-    return () => el.removeEventListener('error', onErr);
+    if (!enabled) return undefined;
+    let cancelled = false;
+    fetch(wedding.musicSrc, { method: 'HEAD' })
+      .then((res) => {
+        const type = res.headers.get('content-type') || '';
+        if (!cancelled && (!res.ok || !/audio|mpeg|octet-stream/i.test(type))) {
+          setAvailable(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setAvailable(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [enabled]);
 
   const toggle = async () => {
@@ -34,7 +47,7 @@ export default function MusicPlayer({ enabled }) {
         setPlaying(true);
       }
     } catch {
-      setAvailable(false);
+      // playback was blocked or interrupted — keep the control, just reset state
       setPlaying(false);
     }
   };
