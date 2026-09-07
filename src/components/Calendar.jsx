@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
+import useInViewport from '../hooks/useInViewport.js';
 import { SparkleRule, EucalyptusSprig } from './decor.jsx';
 
 const HEART_FILL =
@@ -12,57 +13,9 @@ const HEART_LINE_1 =
 const HEART_LINE_2 =
   'M50 89 C 21 67 8 47 9 30 C 9 16 20 8 33 8 C 44 8 48 15 51 22 C 53 14 59 8 68 8 C 81 8 92 17 91 32 C 91 49 79 67 50 89 Z';
 
-const clamp01 = (n) => (n < 0 ? 0 : n > 1 ? 1 : n);
-const lerp = (a, b, t) => a + (b - a) * t;
-// map v in [i0,i1] to [o0,o1], clamped
-const range = (v, i0, i1, o0, o1) => lerp(o0, o1, clamp01((v - i0) / (i1 - i0)));
-
-/* Progress (0→1) of an element travelling through the viewport:
-   0 when its top sits at the viewport bottom, 1 when the element's centre
-   reaches the viewport centre. Sampled on a rAF loop from getBoundingClientRect
-   so it stays correct regardless of which element actually owns the scroll. */
-function useScrollProgress(ref) {
-  const [p, setP] = useState(0);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    let raf = 0;
-    let last = -1;
-    const compute = () => {
-      raf = 0;
-      const r = el.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const startTop = vh; // section top at the viewport bottom → progress 0
-      const endTop = vh * 0.18; // section top near the top of the viewport → progress 1
-      const next = clamp01((startTop - r.top) / (startTop - endTop));
-      if (Math.abs(next - last) > 0.001) {
-        last = next;
-        setP(next);
-      }
-    };
-    const schedule = () => {
-      if (!raf) raf = requestAnimationFrame(compute);
-    };
-    compute();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    // safety net for environments where scroll events / rAF are throttled
-    const id = window.setInterval(compute, 150);
-    return () => {
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      window.clearInterval(id);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [ref]);
-  return p;
-}
-
 export default function Calendar() {
   const { t } = useLang();
   const { year, month, day } = wedding.date; // month 1-indexed
-  const sectionRef = useRef(null);
-  const progress = useScrollProgress(sectionRef);
 
   const cells = useMemo(() => {
     const first = new Date(year, month - 1, 1);
@@ -76,7 +29,7 @@ export default function Calendar() {
   }, [year, month]);
 
   return (
-    <section ref={sectionRef} id="calendar" className="relative overflow-hidden px-6 py-16 sm:py-24">
+    <section id="calendar" className="relative overflow-hidden px-6 py-16 sm:py-24">
       <EucalyptusSprig flip className="pointer-events-none absolute -right-10 top-12 w-40 opacity-35 sm:right-4 sm:w-52" />
       <div className="mx-auto max-w-xl text-center">
         <Reveal preset="fade-up">
@@ -104,7 +57,7 @@ export default function Calendar() {
                   {d && d !== day && (
                     <span className="font-serif text-base text-ink/75 sm:text-lg">{d}</span>
                   )}
-                  {d === day && <WeddingDay day={d} progress={progress} />}
+                  {d === day && <WeddingDay day={d} />}
                 </div>
               ))}
             </div>
@@ -121,63 +74,23 @@ export default function Calendar() {
   );
 }
 
-function WeddingDay({ day, progress }) {
+/* The wedding-day heart: flies in from the calendar's edge, lands on the date,
+   then the pen strokes draw in and petals scatter. A one-shot CSS animation
+   fired when the calendar scrolls into view (via useInViewport, the same
+   reliable observer the rest of the page uses). */
+function WeddingDay({ day }) {
   const reduce = useReducedMotion();
-  const p = reduce ? 1 : progress;
-  const arrived = p >= 0.8;
-
-  // eased flight values
-  const travel = clamp01(p / 0.72);
-  const x = lerp(-44, 0, travel * travel * (3 - 2 * travel)); // smoothstep
-  const rot = p < 0.75 ? lerp(-24, 6, clamp01(p / 0.75)) : lerp(6, -3, clamp01((p - 0.75) / 0.25));
-  const scale =
-    p < 0.68 ? lerp(0.5, 1.12, clamp01(p / 0.68)) : lerp(1.12, 1, clamp01((p - 0.68) / 0.32));
-  const heartOpacity = reduce ? 1 : clamp01(p / 0.08);
-
-  const glow = reduce ? 0.95 : range(p, 0.55, 1, 0, 0.95);
-  const fill = reduce ? 0.14 : range(p, 0.72, 1, 0, 0.16);
-  const line2 = reduce ? 0.9 : range(p, 0.4, 0.7, 0, 0.9);
-  const trail =
-    reduce || p <= 0.04
-      ? 0
-      : p < 0.16
-        ? range(p, 0.04, 0.16, 0, 0.7)
-        : p < 0.62
-          ? 0.65
-          : range(p, 0.62, 0.82, 0.65, 0);
+  const [ref, inView] = useInViewport();
+  const on = inView || reduce;
 
   return (
-    <div className={`cal-day ${arrived ? 'cal-day--arrived' : ''} ${reduce ? 'cal-day--static' : ''}`}>
-      <span className="cal-day__glow" style={{ opacity: glow }} aria-hidden="true" />
+    <div ref={ref} className={`cal-day ${on ? 'cal-day--in' : ''} ${reduce ? 'cal-day--reduce' : ''}`}>
+      <span className="cal-day__glow" aria-hidden="true" />
 
-      {!reduce && (
-        <svg
-          className="cal-day__trail"
-          viewBox="0 0 320 46"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          style={{ opacity: trail, transform: `translateY(-50%) scaleX(${lerp(0.25, 1, travel)})` }}
-        >
-          <path d="M2 44 C 88 44 150 8 318 12" strokeDasharray="2 5" />
-        </svg>
-      )}
-
-      <svg
-        className="cal-day__heart"
-        viewBox="0 0 100 100"
-        aria-hidden="true"
-        style={{
-          opacity: heartOpacity,
-          transform: `translateX(${x}vw) rotate(${rot}deg) scale(${scale})`,
-        }}
-      >
-        <path className="cal-day__heart-fill" style={{ fillOpacity: fill }} d={HEART_FILL} />
-        <path className="cal-day__heart-line cal-day__heart-line--1" d={HEART_LINE_1} />
-        <path
-          className="cal-day__heart-line cal-day__heart-line--2"
-          style={{ opacity: line2 }}
-          d={HEART_LINE_2}
-        />
+      <svg className="cal-day__heart" viewBox="0 0 100 100" aria-hidden="true">
+        <path className="cal-day__heart-fill" d={HEART_FILL} />
+        <path className="cal-day__heart-line cal-day__heart-line--1" pathLength="1" d={HEART_LINE_1} />
+        <path className="cal-day__heart-line cal-day__heart-line--2" pathLength="1" d={HEART_LINE_2} />
       </svg>
 
       <span className="cal-day__num font-display">{day}</span>

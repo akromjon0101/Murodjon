@@ -113,11 +113,11 @@ body {
 .page-bg__photo {
   position: absolute;
   inset: -24px;
-  background-position: center 16%;
+  background-position: center 14%;
   background-size: cover;
   background-repeat: no-repeat;
-  filter: blur(6px) saturate(0.85) brightness(1.06);
-  opacity: 0.78;
+  filter: blur(5px) saturate(0.88) brightness(1.05);
+  opacity: 0.85;
   transform: translateZ(0);
 }
 /* paper-coloured veil so every section stays legible over the photo */
@@ -125,8 +125,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(58% 44% at 50% 40%, rgba(253, 251, 246, 0.5), rgba(253, 251, 246, 0.78) 82%),
-    linear-gradient(180deg, rgba(253, 251, 246, 0.6) 0%, rgba(253, 251, 246, 0.74) 45%, rgba(251, 245, 238, 0.8) 100%);
+    radial-gradient(58% 44% at 50% 40%, rgba(253, 251, 246, 0.42), rgba(253, 251, 246, 0.72) 82%),
+    linear-gradient(180deg, rgba(253, 251, 246, 0.52) 0%, rgba(253, 251, 246, 0.66) 45%, rgba(251, 245, 238, 0.74) 100%);
 }
 /* a gentle centre light so content sits in a soft pool */
 .page-bg__glow {
@@ -599,7 +599,7 @@ body {
   pointer-events: none;
 }
 
-/* ---- calendar wedding-day heart (scroll-driven — flies in from the edge) ---- */
+/* ---- calendar wedding-day heart (flies in from the edge on scroll-in) ---- */
 .cal-day {
   position: absolute;
   inset: 0;
@@ -613,77 +613,86 @@ body {
   z-index: 3;
   font-size: 1.2rem;
   color: #3a5a7c;
-  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.5, 1), color 0.6s ease;
+  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.5, 1) 1.5s, color 0.6s ease 1.5s;
 }
 @media (min-width: 640px) {
   .cal-day__num {
     font-size: 1.5rem;
   }
 }
-.cal-day--arrived .cal-day__num {
-  transform: scale(1.32);
+.cal-day--in .cal-day__num {
+  transform: scale(1.24);
   color: #b26b75;
 }
 
 .cal-day__glow {
   position: absolute;
-  inset: -44%;
+  inset: -42%;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(217, 169, 174, 0.42), transparent 70%);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: scale(0.5);
+  transition: opacity 1s ease 1.3s, transform 1s ease 1.3s;
+}
+.cal-day--in .cal-day__glow {
+  opacity: 0.9;
+  transform: scale(1);
 }
 
-/* the dashed flight path the heart travels along */
-.cal-day__trail {
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  width: 46vw;
-  max-width: 320px;
-  height: 46px;
-  transform: translateY(-50%);
-  transform-origin: 100% 50%;
-  overflow: visible;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0;
-}
-.cal-day__trail path {
-  fill: none;
-  stroke: #bd7a83;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-dasharray: 2.5 6;
-}
-
+/* the heart itself — starts off past the calendar's left edge */
 .cal-day__heart {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 150%;
-  height: 150%;
-  margin-left: -75%;
-  margin-top: -75%;
+  width: 128%;
+  height: 128%;
+  margin-left: -64%;
+  margin-top: -64%;
   overflow: visible;
   z-index: 2;
   pointer-events: none;
+  opacity: 0;
+  transform: translate(-46vw, -4%) rotate(-28deg) scale(0.42);
   will-change: transform, opacity;
-  transition: transform 0.18s linear, opacity 0.25s ease;
 }
 @media (min-width: 640px) {
   .cal-day__heart {
-    width: 168%;
-    height: 168%;
-    margin-left: -84%;
-    margin-top: -84%;
+    width: 142%;
+    height: 142%;
+    margin-left: -71%;
+    margin-top: -71%;
+  }
+}
+.cal-day--in .cal-day__heart {
+  animation: cal-heart-fly 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+@keyframes cal-heart-fly {
+  0% {
+    opacity: 0;
+    transform: translate(-46vw, -4%) rotate(-28deg) scale(0.42);
+  }
+  18% {
+    opacity: 1;
+  }
+  72% {
+    transform: translate(7%, -2%) rotate(9deg) scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(-3deg) scale(1);
   }
 }
 .cal-day__heart-fill {
   fill: #d9a9ae;
+  opacity: 0;
+  transition: opacity 1s ease 1.4s;
 }
+.cal-day--in .cal-day__heart-fill {
+  opacity: 0.16;
+}
+/* the main outline is solid so the heart reads as it flies in */
 .cal-day__heart-line {
   fill: none;
   stroke: #b26b75;
@@ -694,14 +703,11 @@ body {
 .cal-day__heart-line--2 {
   stroke: #c98a92;
   stroke-width: 3;
+  opacity: 0;
+  transition: opacity 0.8s ease 1.6s;
 }
-
-.cal-day--static .cal-day__heart {
-  transform: none !important;
-  opacity: 1;
-}
-.cal-day--static .cal-day__trail {
-  display: none;
+.cal-day--in .cal-day__heart-line--2 {
+  opacity: 0.8;
 }
 
 .cal-day__petal {
@@ -713,9 +719,9 @@ body {
   opacity: 0;
   z-index: 2;
 }
-.cal-day--arrived .cal-day__petal {
+.cal-day--in .cal-day__petal {
   animation: cal-petal 1.9s ease-out forwards;
-  animation-delay: var(--d, 0ms);
+  animation-delay: calc(2.4s + var(--d, 0ms));
 }
 @keyframes cal-petal {
   0% {
@@ -730,6 +736,30 @@ body {
     opacity: 0;
     transform: rotate(var(--a)) translateY(-34px) scale(0.5);
   }
+}
+
+/* reduced motion — heart simply sits on the day, filled */
+.cal-day--reduce .cal-day__heart {
+  animation: none;
+  opacity: 1;
+  transform: translate(0, 0) rotate(-3deg) scale(1);
+}
+.cal-day--reduce .cal-day__heart-line {
+  stroke-dashoffset: 0;
+  opacity: 0.9;
+  animation: none;
+}
+.cal-day--reduce .cal-day__heart-fill {
+  opacity: 0.16;
+  transition: none;
+}
+.cal-day--reduce .cal-day__glow {
+  opacity: 0.9;
+  transform: scale(1);
+  transition: none;
+}
+.cal-day--reduce .cal-day__num {
+  transition: none;
 }
 
 /* ---- gilded photo frames (circle + arch) ---- */
@@ -824,15 +854,25 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .cal-day__heart {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: translate(0, 0) rotate(-3deg) scale(1) !important;
+  }
+  .cal-day__heart-line {
+    stroke-dashoffset: 0 !important;
+    opacity: 0.9 !important;
+    animation: none !important;
+  }
+  .cal-day__heart-fill {
+    opacity: 0.16 !important;
+  }
+  .cal-day__glow {
+    opacity: 0.9 !important;
+    transform: scale(1) !important;
+  }
   .cal-day__num {
     transition: none !important;
-  }
-  .cal-day__heart {
-    transform: none !important;
-    opacity: 1 !important;
-  }
-  .cal-day__trail {
-    display: none;
   }
   .cal-day__petal {
     display: none;
