@@ -2,7 +2,7 @@ import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
 import { GoldDecoCorner, FlutterButterfly } from './decor.jsx';
-import CoupleIllustration from './CoupleIllustration.jsx';
+import PhotoFrame from './PhotoFrame.jsx';
 
 export default function ClosingMessage() {
   const { t, lang } = useLang();
@@ -34,9 +34,15 @@ export default function ClosingMessage() {
           <p className="mt-4 font-serif text-sm uppercase tracking-widest2 text-stone">{t.dateShort}</p>
         </Reveal>
 
-        <Reveal preset="fade-up" delay={0.35}>
-          <CoupleIllustration className="mx-auto mt-12 w-48 sm:w-56" />
-        </Reveal>
+        {wedding.photos?.bouquet && (
+          <Reveal preset="fade-up" delay={0.35}>
+            <PhotoFrame
+              src={wedding.photos.bouquet}
+              shape="arch"
+              className="mx-auto mt-14 w-52 sm:w-60"
+            />
+          </Reveal>
+        )}
       </div>
     </section>
   );

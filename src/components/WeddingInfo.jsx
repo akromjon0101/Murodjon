@@ -1,3 +1,4 @@
+import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
 import {
@@ -8,7 +9,7 @@ import {
   SparkleRule,
   EucalyptusSprig,
 } from './decor.jsx';
-import FloralVignette from './FloralVignette.jsx';
+import PhotoFrame from './PhotoFrame.jsx';
 
 export default function WeddingInfo() {
   const { t } = useLang();
@@ -47,11 +48,13 @@ export default function WeddingInfo() {
           ))}
         </div>
 
-        <Reveal preset="fade" delay={0.15}>
-          <div className="mt-16 flex justify-center" aria-hidden="true">
-            <FloralVignette id="info-vg" className="w-44 text-navy sm:w-56" />
-          </div>
-        </Reveal>
+        {wedding.photos?.ringsClose && (
+          <Reveal preset="fade" delay={0.15}>
+            <div className="mt-16 flex justify-center">
+              <PhotoFrame src={wedding.photos.ringsClose} shape="circle" className="w-44 sm:w-52" />
+            </div>
+          </Reveal>
+        )}
       </div>
     </section>
   );

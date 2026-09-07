@@ -19,6 +19,17 @@ export const wedding = {
   // Optional background music. Drop an mp3 at public/music/wedding.mp3
   // (or point this at any hosted URL). Missing files fail gracefully.
   musicSrc: '/music/wedding.mp3',
+  // Playback starts (and loops back) at this offset, in seconds.
+  musicStart: 20,
+
+  // Softly-blurred photo behind the whole page. Empty = plain paper background.
+  bgPhoto: '/bac.jpg',
+  // Photos used in the framed vignettes through the page.
+  photos: {
+    rings: '/rings-1.jpg',
+    ringsClose: '/rings-2.jpg',
+    bouquet: '/bouquet.jpg',
+  },
 };
 
 // JS Date for the ceremony (month is 0-indexed for the Date constructor).

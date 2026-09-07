@@ -4,6 +4,8 @@ import { LANGS, strings } from '../data/i18n.js';
 const KEY = 'wedding-lang';
 const LangContext = createContext(null);
 
+const DEFAULT_LANG = 'uz';
+
 function initialLang() {
   try {
     const saved = localStorage.getItem(KEY);
@@ -11,10 +13,8 @@ function initialLang() {
   } catch {
     /* ignore */
   }
-  const nav = (typeof navigator !== 'undefined' && navigator.language) || 'uz';
-  if (nav.startsWith('ru')) return 'ru';
-  if (nav.startsWith('en')) return 'en';
-  return 'uz';
+  // Default to Uzbek for everyone; visitors can still switch manually.
+  return DEFAULT_LANG;
 }
 
 export function LangProvider({ children }) {

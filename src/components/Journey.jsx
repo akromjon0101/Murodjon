@@ -1,7 +1,8 @@
+import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
 import { Sparkle, SparkleRule, EucalyptusSprig } from './decor.jsx';
-import FloralVignette from './FloralVignette.jsx';
+import PhotoFrame from './PhotoFrame.jsx';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
@@ -30,11 +31,12 @@ export default function Journey() {
           {milestones.map((m, i) => (
             <div key={i}>
               {i > 0 && (
-                <div className="my-12 flex justify-center sm:my-16" aria-hidden="true">
-                  <FloralVignette
-                    id={`journey-vg-${i}`}
-                    className="w-40 text-navy sm:w-52"
-                  />
+                <div className="my-12 flex justify-center sm:my-16">
+                  {wedding.photos?.rings ? (
+                    <PhotoFrame src={wedding.photos.rings} shape="arch" className="w-44 sm:w-56" />
+                  ) : (
+                    <SparkleRule width="w-16" />
+                  )}
                 </div>
               )}
               <Reveal preset="fade-up" delay={0.05} className="journey-step">

@@ -3,21 +3,26 @@ import { wedding, initials } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import { GoldDecoCorner, SparkleRule, Monogram, Petal } from './decor.jsx';
 
-const OPEN_MS = 1700; // envelope animation → reveal the site
-const LEAVE_MS = 1100; // overlay fade / zoom-out → fully unmount
+const OPEN_MS = 2050; // envelope animation → reveal the site
+const LEAVE_MS = 1150; // overlay fade / zoom-out → fully unmount
 
 /* Pure-CSS opening animation. Deliberately NO framer-motion here (it was
    freezing under load and crashing on unmount). */
-export default function OpeningEnvelope({ onOpen }) {
+export default function OpeningEnvelope({ onOpen, onIntent }) {
   const { t, lang } = useLang();
   const reduceRef = useRef(
     typeof window !== 'undefined' &&
       window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
   );
+  const firedRef = useRef(false);
   const [phase, setPhase] = useState('closed'); // closed → opening → leaving → gone
 
   const handleOpen = useCallback(() => {
+    if (firedRef.current) return;
+    firedRef.current = true;
+    // Fire synchronously, inside the click's user gesture, so audio can start.
+    onIntent?.();
     setPhase((p) => {
       if (p !== 'closed') return p;
       if (reduceRef.current) {
@@ -30,7 +35,7 @@ export default function OpeningEnvelope({ onOpen }) {
       }, OPEN_MS);
       return 'opening';
     });
-  }, [onOpen]);
+  }, [onOpen, onIntent]);
 
   useEffect(() => {
     if (phase !== 'leaving') return undefined;
@@ -61,18 +66,19 @@ export default function OpeningEnvelope({ onOpen }) {
         }
       }}
     >
-      <img
-        src="/decor/blue-roses-1.png"
-        alt=""
-        className="pointer-events-none absolute -left-14 -top-10 w-[54vw] max-w-[280px] opacity-90 sm:-left-4 sm:w-[24vw]"
-      />
-      <img
-        src="/decor/blue-roses-2.png"
-        alt=""
-        className="pointer-events-none absolute -right-14 -bottom-10 w-[52vw] max-w-[260px] -scale-x-100 opacity-80 sm:-right-4 sm:w-[22vw]"
-      />
-      <GoldDecoCorner className="pointer-events-none absolute right-4 top-4 hidden w-16 -scale-x-100 opacity-70 sm:block sm:w-20" />
-      <GoldDecoCorner className="pointer-events-none absolute left-4 bottom-4 hidden w-16 -scale-y-100 opacity-70 sm:block sm:w-20" />
+      {wedding.bgPhoto && (
+        <>
+          <div
+            className="env-photo pointer-events-none absolute inset-0"
+            style={{ backgroundImage: `url(${wedding.bgPhoto})` }}
+          />
+          <div className="env-photo-veil pointer-events-none absolute inset-0" />
+        </>
+      )}
+      <GoldDecoCorner className="pointer-events-none absolute left-4 top-4 w-12 opacity-70 sm:w-20" />
+      <GoldDecoCorner className="pointer-events-none absolute right-4 top-4 w-12 -scale-x-100 opacity-70 sm:w-20" />
+      <GoldDecoCorner className="pointer-events-none absolute left-4 bottom-4 w-12 -scale-y-100 opacity-70 sm:w-20" />
+      <GoldDecoCorner className="pointer-events-none absolute right-4 bottom-4 w-12 -scale-100 opacity-70 sm:w-20" />
 
       <div className="env-stage relative w-full max-w-md">
         <p className="env-eyebrow heading-eyebrow text-center">{t.familiesLine}</p>
@@ -100,9 +106,8 @@ export default function OpeningEnvelope({ onOpen }) {
           {/* wax seal — single piece, scales away (no splitting) */}
           <div className="absolute left-1/2 top-1/2 z-40 h-14 w-14 -translate-x-1/2 -translate-y-1/2">
             <span className="env-seal flex h-full w-full items-center justify-center rounded-full bg-navy text-paper">
-              <span className="font-script text-2xl leading-none">
-                {initials.bride}
-                {initials.groom}
+              <span className="whitespace-nowrap font-script text-lg leading-none tracking-[0.1em]">
+                {initials.bride}&thinsp;{initials.groom}
               </span>
             </span>
             <span className="env-seal-pulse" aria-hidden="true" />

@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
+import { wedding } from '../data/wedding.js';
 
-/* Fixed decorative background — a soft blended watercolor colour-field, a
-   scatter of gilded dust, a fine inset gold frame and a whisper of grain.
-   No line-art florals; the elegance comes from colour, light and restraint. */
+/* Fixed decorative background — the couple's ceremony photo, softly blurred and
+   washed out under a paper-coloured veil so every section stays readable, plus
+   a scatter of gilded dust and a fine inset gold frame. */
 
 function seeded(seed) {
   let s = seed;
@@ -15,11 +16,11 @@ function seeded(seed) {
 export default function PageBackground() {
   const dust = useMemo(() => {
     const rnd = seeded(20260910);
-    return Array.from({ length: 26 }, (_, i) => ({
+    return Array.from({ length: 20 }, (_, i) => ({
       id: i,
       left: rnd() * 100,
       top: rnd() * 100,
-      size: 1 + rnd() * 2.4,
+      size: 1 + rnd() * 2.2,
       delay: rnd() * 8,
       dur: 5 + rnd() * 7,
       gold: rnd() > 0.45,
@@ -28,7 +29,13 @@ export default function PageBackground() {
 
   return (
     <div className="page-bg pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-      <div className="page-bg__field" />
+      {wedding.bgPhoto && (
+        <div
+          className="page-bg__photo"
+          style={{ backgroundImage: `url(${wedding.bgPhoto})` }}
+        />
+      )}
+      <div className="page-bg__veil" />
       <div className="page-bg__glow" />
 
       {dust.map((d) => (
@@ -45,10 +52,6 @@ export default function PageBackground() {
           }}
         />
       ))}
-
-      {/* real watercolor dusty-blue rose bouquets, framing the page */}
-      <img src="/decor/blue-roses-1.png" alt="" className="page-bg__rose page-bg__rose--tl" />
-      <img src="/decor/blue-roses-2.png" alt="" className="page-bg__rose page-bg__rose--br" />
 
       {/* fine inset frame with corner marks */}
       <div className="page-bg__frame">

@@ -192,31 +192,31 @@ export function GoldMonogram({ a = 'A', b = 'B', className = '' }) {
 
       {/* initials */}
       <text
-        x="44"
-        y="72"
+        x="37"
+        y="70"
         textAnchor="middle"
         fontFamily="'Great Vibes', cursive"
-        fontSize="42"
+        fontSize="31"
         fill="#3A5A7C"
       >
         {a}
       </text>
       <text
-        x="62"
-        y="66"
+        x="60"
+        y="64"
         textAnchor="middle"
         fontFamily="'Cormorant Garamond', serif"
-        fontSize="16"
+        fontSize="13"
         fill="#B08A50"
       >
         &amp;
       </text>
       <text
-        x="80"
-        y="80"
+        x="84"
+        y="77"
         textAnchor="middle"
         fontFamily="'Great Vibes', cursive"
-        fontSize="42"
+        fontSize="31"
         fill="#3A5A7C"
       >
         {b}
