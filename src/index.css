@@ -620,9 +620,9 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 196%;
-  height: 196%;
-  transform: translate(-50%, -53%) rotate(-3deg);
+  width: 132%;
+  height: 132%;
+  transform: translate(-50%, -52%) rotate(-3deg);
   overflow: visible;
   z-index: 2;
 }
