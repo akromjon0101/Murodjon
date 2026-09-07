@@ -2,12 +2,13 @@
 // src/data/i18n.js so the invitation can switch languages.
 
 export const wedding = {
-  // Names per language (keep Latin spelling if you prefer it everywhere).
-  bride: { uz: 'Madina', ru: 'Мадина', en: 'Madina' },
-  groom: { uz: 'Murodjon', ru: 'Муроджон', en: 'Murodjon' },
+  // Names per language. `bride` is shown first, `groom` second — here the
+  // couple is displayed as "Murodjon va Mubinaxon".
+  bride: { uz: 'Murodjon', ru: 'Муроджон', en: 'Murodjon' },
+  groom: { uz: 'Mubinaxon', ru: 'Мубинахон', en: 'Mubinaxon' },
 
   // Ceremony date & time (local). Month is 1-indexed for readability.
-  date: { year: 2026, month: 9, day: 10, hour: 15, minute: 0 },
+  date: { year: 2026, month: 9, day: 10, hour: 14, minute: 0 },
 
   venue: {
     // ~40.72258, 72.63811 — "SAFINA" to'yxonasi, Andijon

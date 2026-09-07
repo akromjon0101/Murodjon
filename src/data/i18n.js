@@ -31,7 +31,7 @@ export const strings = {
     monthName: 'SENTABR',
     weekday: 'PAY',
     weekdaysShort: ['Du','Se','Ch','Pa','Ju','Sh','Ya'],
-    time: '15:00',
+    time: '14:00',
     year: '2026',
 
     countingMoments: 'Damlarni sanaymiz',
@@ -90,7 +90,7 @@ export const strings = {
     monthName: 'СЕНТЯБРЬ',
     weekday: 'ЧТ',
     weekdaysShort: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
-    time: '15:00',
+    time: '14:00',
     year: '2026',
 
     countingMoments: 'Считаем мгновения',
@@ -149,7 +149,7 @@ export const strings = {
     monthName: 'SEPTEMBER',
     weekday: 'THU',
     weekdaysShort: ['Mo','Tu','We','Th','Fr','Sa','Su'],
-    time: '3 PM',
+    time: '2 PM',
     year: '2026',
 
     countingMoments: 'Counting the moments',
