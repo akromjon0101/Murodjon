@@ -455,6 +455,115 @@ export function WatercolorBouquet({ className = '', id = 'wb', flip = false }) {
   );
 }
 
+/* ---- gilded watercolor bloom (soft washes, no scribbly linework) ---- */
+
+/* One abstract rose built from translucent petal ellipses spiralling inward. */
+function softRose(cx, cy, r, a, b) {
+  const petals = [];
+  const rings = [
+    { count: 6, rad: r, scale: 1, tone: b },
+    { count: 5, rad: r * 0.66, scale: 0.8, tone: a },
+    { count: 4, rad: r * 0.36, scale: 0.62, tone: b },
+  ];
+  rings.forEach((ring, ri) => {
+    for (let i = 0; i < ring.count; i++) {
+      const ang = (i / ring.count) * 360 + ri * 24;
+      const rad = (ang * Math.PI) / 180;
+      const px = cx + Math.cos(rad) * ring.rad * 0.5;
+      const py = cy + Math.sin(rad) * ring.rad * 0.5;
+      petals.push(
+        <ellipse
+          key={`${ri}-${i}`}
+          cx={px}
+          cy={py}
+          rx={r * 0.5 * ring.scale}
+          ry={r * 0.34 * ring.scale}
+          fill={ring.tone}
+          transform={`rotate(${ang} ${px} ${py})`}
+        />
+      );
+    }
+  });
+  return (
+    <g key={`${cx}-${cy}`}>
+      <circle cx={cx} cy={cy} r={r * 1.15} fill={a} />
+      {petals}
+      <circle cx={cx} cy={cy} r={r * 0.14} fill="#B08A50" fillOpacity="0.5" />
+    </g>
+  );
+}
+
+/* A fine-art watercolor arrangement — soft blooms, leaf washes, gold sprigs and
+   a few gilded dots. Painterly, no visible pen-strokes. `id` unique per use. */
+export function GildedBloom({ className = '', id = 'gb', flip = false }) {
+  const blue = `${id}-b`;
+  const blush = `${id}-r`;
+  const leaf = `${id}-l`;
+  return (
+    <svg
+      viewBox="0 0 340 300"
+      className={className}
+      fill="none"
+      aria-hidden="true"
+      style={flip ? { transform: 'scaleX(-1)' } : undefined}
+    >
+      <defs>
+        <radialGradient id={blue} cx="0.42" cy="0.4" r="0.75">
+          <stop offset="0" stopColor="#9FBAD8" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#9FBAD8" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={blush} cx="0.42" cy="0.4" r="0.75">
+          <stop offset="0" stopColor="#E4BEC3" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#E4BEC3" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id={leaf} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#8FA9C6" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#B8C9DE" stopOpacity="0.2" />
+        </linearGradient>
+      </defs>
+
+      {/* painterly base washes */}
+      <ellipse cx="120" cy="128" rx="104" ry="88" fill={`url(#${blue})`} />
+      <ellipse cx="214" cy="150" rx="92" ry="80" fill={`url(#${blush})`} />
+      <ellipse cx="176" cy="86" rx="74" ry="60" fill={`url(#${blush})`} />
+
+      {/* leaf washes */}
+      <g fill={`url(#${leaf})`}>
+        <path d="M150 176 C 96 172 52 150 24 108 C 70 96 122 112 150 176 Z" />
+        <path d="M176 176 C 220 150 268 150 320 168 C 280 196 224 196 176 176 Z" />
+        <path d="M164 172 C 150 128 152 78 172 32 C 200 74 196 132 164 172 Z" />
+      </g>
+
+      {/* gold accent sprigs */}
+      <g stroke="#B08A50" strokeOpacity="0.7" strokeWidth="1" fill="none" strokeLinecap="round">
+        <path d="M182 176 C 224 150 272 150 316 170" />
+        {[230, 252, 274, 294].map((gx, i) => (
+          <path key={i} d={leafPath(gx, 150 + i * 4 + (gx - 230) * 0.12, -42, 12, 0.34)} />
+        ))}
+        <path d="M158 178 C 128 150 96 148 58 162" />
+        {[134, 114, 94].map((gx, i) => (
+          <path key={`l${i}`} d={leafPath(gx, 156 + i * 3, -138, 11, 0.34)} />
+        ))}
+      </g>
+
+      {/* the blooms */}
+      {softRose(128, 130, 40, `url(#${blue})`, `url(#${blush})`)}
+      {softRose(214, 152, 32, `url(#${blush})`, `url(#${blue})`)}
+      {softRose(176, 90, 26, `url(#${blue})`, `url(#${blush})`)}
+      {softRose(158, 180, 18, `url(#${blush})`, `url(#${blue})`)}
+
+      {/* gilded berries + dots */}
+      <g fill="#B08A50" fillOpacity="0.55">
+        <circle cx="252" cy="118" r="3.6" />
+        <circle cx="262" cy="126" r="3" />
+        <circle cx="244" cy="128" r="2.6" />
+        <circle cx="96" cy="150" r="2.6" />
+        <circle cx="104" cy="160" r="2.2" />
+      </g>
+    </svg>
+  );
+}
+
 /* A single delicate eucalyptus sprig for section accents. */
 export function EucalyptusSprig({ className = '', flip = false }) {
   return (

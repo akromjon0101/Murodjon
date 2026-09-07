@@ -1,14 +1,60 @@
-import { WatercolorBouquet } from './decor.jsx';
+import { useMemo } from 'react';
 
-/* Fixed decorative background — a warm ivory ground with soft colour washes
-   and two watercolor bouquets anchored at opposite corners. Minimal enough
-   that content still breathes. */
+/* Fixed decorative background — a soft blended watercolor colour-field, a
+   scatter of gilded dust, a fine inset gold frame and a whisper of grain.
+   No line-art florals; the elegance comes from colour, light and restraint. */
+
+function seeded(seed) {
+  let s = seed;
+  return () => {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
 export default function PageBackground() {
+  const dust = useMemo(() => {
+    const rnd = seeded(20260910);
+    return Array.from({ length: 26 }, (_, i) => ({
+      id: i,
+      left: rnd() * 100,
+      top: rnd() * 100,
+      size: 1 + rnd() * 2.4,
+      delay: rnd() * 8,
+      dur: 5 + rnd() * 7,
+      gold: rnd() > 0.45,
+    }));
+  }, []);
+
   return (
     <div className="page-bg pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-      <div className="page-bg__wash" />
-      <WatercolorBouquet id="bg1" className="page-bg__bq page-bg__bq--tr" />
-      <WatercolorBouquet id="bg2" flip className="page-bg__bq page-bg__bq--bl" />
+      <div className="page-bg__field" />
+      <div className="page-bg__glow" />
+
+      {dust.map((d) => (
+        <span
+          key={d.id}
+          className={`page-bg__dust ${d.gold ? 'page-bg__dust--gold' : ''}`}
+          style={{
+            left: `${d.left}%`,
+            top: `${d.top}%`,
+            width: d.size,
+            height: d.size,
+            animationDelay: `${d.delay}s`,
+            animationDuration: `${d.dur}s`,
+          }}
+        />
+      ))}
+
+      {/* fine inset frame with corner marks */}
+      <div className="page-bg__frame">
+        <span className="page-bg__corner page-bg__corner--tl" />
+        <span className="page-bg__corner page-bg__corner--tr" />
+        <span className="page-bg__corner page-bg__corner--bl" />
+        <span className="page-bg__corner page-bg__corner--br" />
+      </div>
+
+      <div className="page-bg__grain" />
     </div>
   );
 }

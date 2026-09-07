@@ -106,41 +106,120 @@ body {
 
 /* ---- decorative page background ---- */
 .page-bg {
-  background: #fdfbf7;
+  background: #fdfbf6;
 }
-.page-bg__wash {
+
+/* soft blended watercolor colour-field */
+.page-bg__field {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(70% 55% at 8% 4%, rgba(150, 178, 208, 0.13), transparent 60%),
-    radial-gradient(65% 50% at 96% 96%, rgba(207, 189, 158, 0.14), transparent 62%),
-    linear-gradient(178deg, #fbfcfe 0%, #fdfcf9 55%, #fbf6ef 100%);
+    radial-gradient(48% 40% at 6% 2%, rgba(146, 176, 208, 0.22), transparent 62%),
+    radial-gradient(42% 38% at 100% 8%, rgba(205, 190, 158, 0.16), transparent 60%),
+    radial-gradient(52% 44% at 96% 100%, rgba(214, 178, 184, 0.2), transparent 64%),
+    radial-gradient(40% 34% at 2% 92%, rgba(170, 192, 216, 0.16), transparent 62%),
+    linear-gradient(175deg, #fbfcfe 0%, #fdfbf7 48%, #fbf5ee 100%);
 }
-.page-bg__bq {
+/* a gentle centre light so content sits in a soft pool */
+.page-bg__glow {
   position: absolute;
-  width: 74vw;
-  max-width: 560px;
-  opacity: 0.5;
+  inset: 0;
+  background: radial-gradient(58% 46% at 50% 40%, rgba(255, 255, 255, 0.6), transparent 70%);
 }
-.page-bg__bq--tr {
-  top: -12vw;
-  right: -20vw;
+
+/* gilded dust */
+.page-bg__dust {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(58, 90, 124, 0.28);
+  opacity: 0;
+  animation-name: bg-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
-.page-bg__bq--bl {
-  bottom: -12vw;
-  left: -20vw;
-  opacity: 0.42;
+.page-bg__dust--gold {
+  background: rgba(176, 138, 80, 0.6);
+  box-shadow: 0 0 4px rgba(176, 138, 80, 0.35);
 }
-@media (min-width: 768px) {
-  .page-bg__bq {
-    width: 40vw;
-    max-width: 620px;
+@keyframes bg-twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
   }
-  .page-bg__bq--tr {
-    right: -8vw;
+  50% {
+    opacity: 0.7;
+    transform: scale(1);
   }
-  .page-bg__bq--bl {
-    left: -8vw;
+}
+
+/* fine inset gold frame with corner marks */
+.page-bg__frame {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(176, 138, 80, 0.28);
+}
+@media (min-width: 640px) {
+  .page-bg__frame {
+    inset: 22px;
+  }
+}
+.page-bg__corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+}
+.page-bg__corner::before,
+.page-bg__corner::after {
+  content: '';
+  position: absolute;
+  background: rgba(176, 138, 80, 0.55);
+}
+.page-bg__corner::before {
+  width: 12px;
+  height: 1px;
+  top: 0;
+  left: 0;
+}
+.page-bg__corner::after {
+  width: 1px;
+  height: 12px;
+  top: 0;
+  left: 0;
+}
+.page-bg__corner--tl {
+  top: -1px;
+  left: -1px;
+}
+.page-bg__corner--tr {
+  top: -1px;
+  right: -1px;
+  transform: scaleX(-1);
+}
+.page-bg__corner--bl {
+  bottom: -1px;
+  left: -1px;
+  transform: scaleY(-1);
+}
+.page-bg__corner--br {
+  bottom: -1px;
+  right: -1px;
+  transform: scale(-1);
+}
+
+/* whisper of paper grain */
+.page-bg__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-bg__dust {
+    animation: none;
+    opacity: 0.35;
   }
 }
 

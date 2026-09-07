@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { wedding, initials } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
-import { WatercolorBouquet, GoldDecoCorner, SparkleRule, Monogram, Petal } from './decor.jsx';
+import { GildedBloom, GoldDecoCorner, SparkleRule, Monogram, Petal } from './decor.jsx';
 
 const OPEN_MS = 1700; // envelope animation → reveal the site
 const LEAVE_MS = 1100; // overlay fade / zoom-out → fully unmount
@@ -61,8 +61,8 @@ export default function OpeningEnvelope({ onOpen }) {
         }
       }}
     >
-      <WatercolorBouquet id="env-l" className="pointer-events-none absolute -left-16 -top-12 w-[58vw] max-w-[300px] opacity-40 sm:-left-4 sm:w-[26vw]" />
-      <WatercolorBouquet id="env-r" flip className="pointer-events-none absolute -right-16 -bottom-12 w-[58vw] max-w-[300px] opacity-30 sm:-right-4 sm:w-[26vw]" />
+      <GildedBloom id="env-l" className="pointer-events-none absolute -left-16 -top-12 w-[58vw] max-w-[300px] opacity-40 sm:-left-4 sm:w-[26vw]" />
+      <GildedBloom id="env-r" flip className="pointer-events-none absolute -right-16 -bottom-12 w-[58vw] max-w-[300px] opacity-30 sm:-right-4 sm:w-[26vw]" />
       <GoldDecoCorner className="pointer-events-none absolute right-4 top-4 hidden w-16 -scale-x-100 opacity-70 sm:block sm:w-20" />
       <GoldDecoCorner className="pointer-events-none absolute left-4 bottom-4 hidden w-16 -scale-y-100 opacity-70 sm:block sm:w-20" />
 
