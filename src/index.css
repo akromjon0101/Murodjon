@@ -621,13 +621,13 @@ body {
   }
 }
 .cal-day--in .cal-day__num {
-  transform: scale(1.24);
+  transform: scale(1.12);
   color: #b26b75;
 }
 
 .cal-day__glow {
   position: absolute;
-  inset: -42%;
+  inset: -34%;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(217, 169, 174, 0.42), transparent 70%);
   z-index: 1;
@@ -646,10 +646,10 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 128%;
-  height: 128%;
-  margin-left: -64%;
-  margin-top: -64%;
+  width: 104%;
+  height: 104%;
+  margin-left: -52%;
+  margin-top: -52%;
   overflow: visible;
   z-index: 2;
   pointer-events: none;
@@ -659,10 +659,10 @@ body {
 }
 @media (min-width: 640px) {
   .cal-day__heart {
-    width: 142%;
-    height: 142%;
-    margin-left: -71%;
-    margin-top: -71%;
+    width: 116%;
+    height: 116%;
+    margin-left: -58%;
+    margin-top: -58%;
   }
 }
 .cal-day--in .cal-day__heart {
