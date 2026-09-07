@@ -153,6 +153,42 @@ body {
   }
 }
 
+/* real watercolor rose bouquets framing the page */
+.page-bg__rose {
+  position: absolute;
+  height: auto;
+  filter: saturate(0.95);
+}
+.page-bg__rose--tl {
+  top: -7vw;
+  left: -9vw;
+  width: 58vw;
+  max-width: 300px;
+  opacity: 0.82;
+}
+.page-bg__rose--br {
+  right: -11vw;
+  bottom: -7vw;
+  width: 52vw;
+  max-width: 260px;
+  opacity: 0.72;
+  transform: scaleX(-1) rotate(6deg);
+}
+@media (min-width: 768px) {
+  .page-bg__rose--tl {
+    top: -2vw;
+    left: -3vw;
+    width: 26vw;
+    max-width: 320px;
+  }
+  .page-bg__rose--br {
+    right: -3vw;
+    bottom: -3vw;
+    width: 22vw;
+    max-width: 280px;
+  }
+}
+
 /* fine inset gold frame with corner marks */
 .page-bg__frame {
   position: absolute;

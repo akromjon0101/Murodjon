@@ -1,6 +1,6 @@
 import { wedding, initials } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
-import { GoldMonogram, SparkleRule, ArchLine, GildedBloom, GoldDecoCorner } from './decor.jsx';
+import { GoldMonogram, SparkleRule, ArchLine, GoldDecoCorner } from './decor.jsx';
 
 export default function Hero() {
   const { t, lang } = useLang();
@@ -12,17 +12,6 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 pb-28 pt-20"
     >
-      {/* soft watercolor blooms framing the hero, top-left & bottom-right */}
-      <GildedBloom
-        id="hero-bq-l"
-        className="pointer-events-none absolute -left-24 -top-16 w-[78vw] max-w-[380px] opacity-45 sm:-left-10 sm:w-[34vw] lg:w-[30vw]"
-      />
-      <GildedBloom
-        id="hero-bq-r"
-        flip
-        className="pointer-events-none absolute -right-24 -bottom-16 w-[70vw] max-w-[340px] opacity-40 sm:-right-10 sm:w-[30vw] lg:w-[26vw]"
-      />
-
       {/* slim gold editorial corners */}
       <GoldDecoCorner className="pointer-events-none absolute right-5 top-5 hidden w-16 -scale-x-100 opacity-70 sm:block sm:w-20" />
       <GoldDecoCorner className="pointer-events-none absolute left-5 bottom-5 hidden w-16 -scale-y-100 opacity-70 sm:block sm:w-20" />

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { wedding, initials } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
-import { GildedBloom, GoldDecoCorner, SparkleRule, Monogram, Petal } from './decor.jsx';
+import { GoldDecoCorner, SparkleRule, Monogram, Petal } from './decor.jsx';
 
 const OPEN_MS = 1700; // envelope animation → reveal the site
 const LEAVE_MS = 1100; // overlay fade / zoom-out → fully unmount
@@ -61,8 +61,16 @@ export default function OpeningEnvelope({ onOpen }) {
         }
       }}
     >
-      <GildedBloom id="env-l" className="pointer-events-none absolute -left-16 -top-12 w-[58vw] max-w-[300px] opacity-40 sm:-left-4 sm:w-[26vw]" />
-      <GildedBloom id="env-r" flip className="pointer-events-none absolute -right-16 -bottom-12 w-[58vw] max-w-[300px] opacity-30 sm:-right-4 sm:w-[26vw]" />
+      <img
+        src="/decor/blue-roses-1.png"
+        alt=""
+        className="pointer-events-none absolute -left-14 -top-10 w-[54vw] max-w-[280px] opacity-90 sm:-left-4 sm:w-[24vw]"
+      />
+      <img
+        src="/decor/blue-roses-2.png"
+        alt=""
+        className="pointer-events-none absolute -right-14 -bottom-10 w-[52vw] max-w-[260px] -scale-x-100 opacity-80 sm:-right-4 sm:w-[22vw]"
+      />
       <GoldDecoCorner className="pointer-events-none absolute right-4 top-4 hidden w-16 -scale-x-100 opacity-70 sm:block sm:w-20" />
       <GoldDecoCorner className="pointer-events-none absolute left-4 bottom-4 hidden w-16 -scale-y-100 opacity-70 sm:block sm:w-20" />
 

@@ -46,6 +46,10 @@ export default function PageBackground() {
         />
       ))}
 
+      {/* real watercolor dusty-blue rose bouquets, framing the page */}
+      <img src="/decor/blue-roses-1.png" alt="" className="page-bg__rose page-bg__rose--tl" />
+      <img src="/decor/blue-roses-2.png" alt="" className="page-bg__rose page-bg__rose--br" />
+
       {/* fine inset frame with corner marks */}
       <div className="page-bg__frame">
         <span className="page-bg__corner page-bg__corner--tl" />

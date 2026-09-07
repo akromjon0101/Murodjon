@@ -1,7 +1,7 @@
 import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
-import { IconLocation, GildedBloom } from './decor.jsx';
+import { IconLocation } from './decor.jsx';
 
 export default function Venue() {
   const { t } = useLang();
@@ -9,12 +9,6 @@ export default function Venue() {
 
   return (
     <section id="venue" className="relative overflow-hidden px-6 py-16 sm:py-24">
-      <GildedBloom
-        id="venue-spray"
-        flip
-        className="pointer-events-none absolute -right-12 -top-8 hidden w-[24vw] max-w-[280px] opacity-30 sm:block"
-      />
-
       <div className="mx-auto max-w-3xl text-center">
         <Reveal preset="fade-up">
           <p className="heading-eyebrow">{t.weddingVenue}</p>

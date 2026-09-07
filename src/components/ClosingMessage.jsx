@@ -1,7 +1,7 @@
 import { wedding } from '../data/wedding.js';
 import { useLang } from '../i18n/LangContext.jsx';
 import Reveal from './Reveal.jsx';
-import { GildedBloom, GoldDecoCorner, FlutterButterfly } from './decor.jsx';
+import { GoldDecoCorner, FlutterButterfly } from './decor.jsx';
 import CoupleIllustration from './CoupleIllustration.jsx';
 
 export default function ClosingMessage() {
@@ -12,11 +12,6 @@ export default function ClosingMessage() {
       id="closing"
       className="relative flex min-h-[80svh] items-center justify-center overflow-hidden px-6 py-24"
     >
-      <GildedBloom
-        id="closing-spray"
-        flip
-        className="pointer-events-none absolute -right-16 -top-10 w-[58vw] max-w-[300px] opacity-35 sm:-right-4 sm:w-[26vw]"
-      />
       <GoldDecoCorner className="pointer-events-none absolute left-4 top-4 hidden w-16 opacity-70 sm:block" />
       <GoldDecoCorner className="pointer-events-none absolute right-4 bottom-4 hidden w-16 -scale-100 opacity-70 sm:block" />
 
