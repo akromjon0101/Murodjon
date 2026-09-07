@@ -116,8 +116,8 @@ body {
   background-position: center 14%;
   background-size: cover;
   background-repeat: no-repeat;
-  filter: blur(5px) saturate(0.88) brightness(1.05);
-  opacity: 0.85;
+  filter: blur(6px) saturate(0.82) brightness(1.07);
+  opacity: 0.5;
   transform: translateZ(0);
 }
 /* paper-coloured veil so every section stays legible over the photo */
@@ -125,8 +125,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(58% 44% at 50% 40%, rgba(253, 251, 246, 0.42), rgba(253, 251, 246, 0.72) 82%),
-    linear-gradient(180deg, rgba(253, 251, 246, 0.52) 0%, rgba(253, 251, 246, 0.66) 45%, rgba(251, 245, 238, 0.74) 100%);
+    radial-gradient(58% 44% at 50% 40%, rgba(253, 251, 246, 0.62), rgba(253, 251, 246, 0.84) 82%),
+    linear-gradient(180deg, rgba(253, 251, 246, 0.7) 0%, rgba(253, 251, 246, 0.8) 45%, rgba(251, 245, 238, 0.86) 100%);
 }
 /* a gentle centre light so content sits in a soft pool */
 .page-bg__glow {
