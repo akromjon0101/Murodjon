@@ -44,7 +44,8 @@ export const strings = {
     weddingVenue: 'To‘y manzili',
     venueName: 'Safina to‘yxonasi',
     venueLocation: 'Andijon viloyati',
-    openInMaps: 'Google Xaritada ochish',
+    openInMaps: 'Google Xarita',
+    openInYandex: 'Yandex Xarita',
 
     weddingInfo: 'To‘y ma’lumotlari',
     labelDate: 'Sana',
@@ -102,7 +103,8 @@ export const strings = {
     weddingVenue: 'Место торжества',
     venueName: 'Сафина тўйхонаси',
     venueLocation: 'Андижанская область',
-    openInMaps: 'Открыть в Google Картах',
+    openInMaps: 'Google Карты',
+    openInYandex: 'Яндекс Карты',
 
     weddingInfo: 'Информация о свадьбе',
     labelDate: 'Дата',
@@ -160,7 +162,8 @@ export const strings = {
     weddingVenue: 'Wedding Venue',
     venueName: 'Safina Toyxonasi',
     venueLocation: 'Andijon viloyati',
-    openInMaps: 'Open in Google Maps',
+    openInMaps: 'Google Maps',
+    openInYandex: 'Yandex Maps',
 
     weddingInfo: 'Wedding Information',
     labelDate: 'Date',

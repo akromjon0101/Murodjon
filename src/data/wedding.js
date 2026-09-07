@@ -10,8 +10,11 @@ export const wedding = {
   date: { year: 2026, month: 9, day: 10, hour: 15, minute: 0 },
 
   venue: {
+    // ~40.72258, 72.63811 — "SAFINA" to'yxonasi, Andijon
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=SAFINA+to%27yxonasi+Andijon',
+    yandexUrl:
+      'https://yandex.uz/maps/?ll=72.638111%2C40.722580&z=17&pt=72.638111%2C40.722580%2Cpm2rdm',
     embedSrc:
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3066.2286339576485!2d72.63811113113255!3d40.722580174910874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bcfdf05c16752f%3A0x7f4d6d6b4ec4887!2zLCwgU0FGSU5BJycgdG_igJh5eG9uYXNp!5e0!3m2!1sru!2s!4v1788704377469!5m2!1sru!2s',
   },

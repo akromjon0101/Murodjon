@@ -40,15 +40,28 @@ export default function Venue() {
         </Reveal>
 
         <Reveal preset="fade" delay={0.2}>
-          <a
-            href={venue.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center gap-3 rounded-full border border-navy/70 px-8 py-3.5 font-serif text-sm uppercase tracking-widest2 text-navy transition-colors duration-300 hover:bg-navy hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 active:scale-[0.98]"
-          >
-            <IconLocation className="h-4 w-4" />
-            {t.openInMaps}
-          </a>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <a
+              href={venue.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-full border border-navy/70 px-7 py-3.5 font-serif text-sm uppercase tracking-widest2 text-navy transition-colors duration-300 hover:bg-navy hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 active:scale-[0.98]"
+            >
+              <IconLocation className="h-4 w-4" />
+              {t.openInMaps}
+            </a>
+            {venue.yandexUrl && (
+              <a
+                href={venue.yandexUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 rounded-full border border-navy/70 px-7 py-3.5 font-serif text-sm uppercase tracking-widest2 text-navy transition-colors duration-300 hover:bg-navy hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 active:scale-[0.98]"
+              >
+                <IconLocation className="h-4 w-4" />
+                {t.openInYandex}
+              </a>
+            )}
+          </div>
         </Reveal>
       </div>
     </section>
